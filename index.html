@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Challenge</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div id="welcome-screen" class="screen active">
+            <div class="welcome-content">
+                <h1><i class="fas fa-brain"></i> Quiz Challenge</h1>
+                <p>Test your knowledge with multiple-choice questions!</p>
+                
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-clock"></i>
+                        <span>Timer Challenge</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-trophy"></i>
+                        <span>Score Tracking</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Leaderboard</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-database"></i>
+                        <span>JSON Questions</span>
+                    </div>
+                </div>
+                
+                <div class="settings">
+                    <div class="setting-group">
+                        <label for="num-questions">
+                            <i class="fas fa-list-ol"></i> Number of Questions:
+                        </label>
+                        <select id="num-questions">
+                            <option value="5">5 Questions</option>
+                            <option value="10" selected>10 Questions</option>
+                            <option value="15">15 Questions</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label for="time-limit">
+                            <i class="fas fa-hourglass-half"></i> Time per Question:
+                        </label>
+                        <select id="time-limit">
+                            <option value="15">15 Seconds</option>
+                            <option value="30" selected>30 Seconds</option>
+                            <option value="45">45 Seconds</option>
+                            <option value="60">60 Seconds</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="player-name" placeholder="Enter your name" maxlength="20">
+                </div>
+                
+                <button id="start-btn" class="btn-primary">
+                    <i class="fas fa-play"></i> Start Quiz
+                </button>
+                
+                <button id="view-leaderboard-btn" class="btn-secondary">
+                    <i class="fas fa-crown"></i> View Leaderboard
+                </button>
+            </div>
+        </div>
+        
+        <div id="quiz-screen" class="screen">
+            <div class="quiz-header">
+                <div class="quiz-info">
+                    <div class="info-item">
+                        <i class="fas fa-user"></i>
+                        <span id="current-player">Player</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Question <span id="current-question">1</span>/<span id="total-questions">10</span></span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-star"></i>
+                        <span>Score: <span id="current-score">0</span></span>
+                    </div>
+                </div>
+                
+                <div class="timer-container">
+                    <div class="timer-circle">
+                        <svg width="60" height="60">
+                            <circle class="timer-background" cx="30" cy="30" r="25"></circle>
+                            <circle class="timer-progress" cx="30" cy="30" r="25"></circle>
+                        </svg>
+                        <div class="timer-text" id="timer">30</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quiz-content">
+                <h2 id="question-text">Loading question...</h2>
+                
+                <div class="options-container" id="options-container">
+                </div>
+                
+                <div class="quiz-navigation">
+                    <button id="prev-btn" class="btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Previous
+                    </button>
+                    <button id="next-btn" class="btn-primary">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button id="submit-quiz-btn" class="btn-success">
+                        <i class="fas fa-paper-plane"></i> Submit Quiz
+                    </button>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="results-screen" class="screen">
+            <div class="results-content">
+                <h1><i class="fas fa-award"></i> Quiz Results</h1>
+                
+                <div class="results-summary">
+                    <div class="result-card score-card">
+                        <i class="fas fa-star"></i>
+                        <h2>Final Score</h2>
+                        <div class="score-display" id="final-score">0</div>
+                        <p>Out of <span id="total-questions-result">10</span> questions</p>
+                    </div>
+                    
+                    <div class="result-card accuracy-card">
+                        <i class="fas fa-bullseye"></i>
+                        <h2>Accuracy</h2>
+                        <div class="accuracy-display" id="accuracy">0%</div>
+                        <p><span id="correct-answers">0</span> correct answers</p>
+                    </div>
+                    
+                    <div class="result-card time-card">
+                        <i class="fas fa-clock"></i>
+                        <h2>Time</h2>
+                        <div class="time-display" id="time-taken">0s</div>
+                        <p>Total time taken</p>
+                    </div>
+                </div>
+                
+                <div class="detailed-results">
+                    <h3><i class="fas fa-chart-line"></i> Detailed Breakdown</h3>
+                    <div id="results-breakdown">
+                    </div>
+                </div>
+                
+                <div class="results-actions">
+                    <button id="play-again-btn" class="btn-primary">
+                        <i class="fas fa-redo"></i> Play Again
+                    </button>
+                    <button id="save-score-btn" class="btn-success">
+                        <i class="fas fa-save"></i> Save to Leaderboard
+                    </button>
+                    <button id="home-btn" class="btn-secondary">
+                        <i class="fas fa-home"></i> Return Home
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="leaderboard-screen" class="screen">
+            <div class="leaderboard-content">
+                <h1><i class="fas fa-crown"></i> Leaderboard</h1>
+                <p class="leaderboard-subtitle">Top 10 Players</p>
+                
+                <div class="leaderboard-filters">
+                    <button class="filter-btn active" data-filter="all">All Time</button>
+                    <button class="filter-btn" data-filter="today">Today</button>
+                    <button class="filter-btn" data-filter="week">This Week</button>
+                </div>
+                
+                <div class="leaderboard-container">
+                    <div class="leaderboard-header">
+                        <div class="rank-header">Rank</div>
+                        <div class="name-header">Player</div>
+                        <div class="score-header">Score</div>
+                        <div class="date-header">Date</div>
+                    </div>
+                    <div id="leaderboard-list">
+                        <div class="leaderboard-item loading">
+                            <i class="fas fa-spinner fa-spin"></i> Loading leaderboard...
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="leaderboard-actions">
+                    <button id="back-from-leaderboard" class="btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to Home
+                    </button>
+                    <button id="refresh-leaderboard" class="btn-primary">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK and Configuration -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+    <script>
+        // YOUR ACTUAL FIREBASE CONFIGURATION
+        const firebaseConfig = {
+            apiKey: "AIzaSyAxvpdjhFxmq4IA6mTAp24UUTG2Ad6xTRE",
+            authDomain: "quiz-app-62b04.firebaseapp.com",
+            databaseURL: "https://quiz-app-62b04-default-rtdb.firebaseio.com",
+            projectId: "quiz-app-62b04",
+            storageBucket: "quiz-app-62b04.firebasestorage.app",
+            messagingSenderId: "208210374410",
+            appId: "1:208210374410:web:b4042a71a701508429d4f3",
+            measurementId: "G-41KY05RFJM"
+        };
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+    </script>
+    
+    <script src="script.js"></script>
+</body>
+</html>

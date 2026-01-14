@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  quiz-node:
+    build: .
+    container_name: quiz-app-node
+    ports:
+      - "3001:3000"  # External:3001 → Internal:3000
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+
+  quiz-nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    container_name: quiz-app-nginx
+    ports:
+      - "8080:80"    # External:8080 → Internal:80
+    restart: unless-stopped

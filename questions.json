@@ -1,0 +1,92 @@
+[
+    {
+        "question": "What is the capital of France?",
+        "options": ["London", "Berlin", "Paris", "Madrid"],
+        "correctAnswer": 2,
+        "category": "Geography"
+    },
+    {
+        "question": "Which planet is known as the Red Planet?",
+        "options": ["Venus", "Mars", "Jupiter", "Saturn"],
+        "correctAnswer": 1,
+        "category": "Science"
+    },
+    {
+        "question": "What is the largest ocean on Earth?",
+        "options": ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
+        "correctAnswer": 3,
+        "category": "Geography"
+    },
+    {
+        "question": "Who painted the Mona Lisa?",
+        "options": ["Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Michelangelo"],
+        "correctAnswer": 2,
+        "category": "Art"
+    },
+    {
+        "question": "What is the chemical symbol for gold?",
+        "options": ["Go", "Gd", "Au", "Ag"],
+        "correctAnswer": 2,
+        "category": "Science"
+    },
+    {
+        "question": "Which language is primarily used for web development?",
+        "options": ["Python", "Java", "JavaScript", "C++"],
+        "correctAnswer": 2,
+        "category": "Technology"
+    },
+    {
+        "question": "What year did World War II end?",
+        "options": ["1943", "1944", "1945", "1946"],
+        "correctAnswer": 2,
+        "category": "History"
+    },
+    {
+        "question": "What is the hardest natural substance on Earth?",
+        "options": ["Gold", "Iron", "Diamond", "Platinum"],
+        "correctAnswer": 2,
+        "category": "Science"
+    },
+    {
+        "question": "Which country invented tea?",
+        "options": ["India", "China", "Japan", "England"],
+        "correctAnswer": 1,
+        "category": "History"
+    },
+    {
+        "question": "How many continents are there?",
+        "options": ["5", "6", "7", "8"],
+        "correctAnswer": 2,
+        "category": "Geography"
+    },
+    {
+        "question": "What is the largest mammal in the world?",
+        "options": ["African Elephant", "Blue Whale", "Giraffe", "Polar Bear"],
+        "correctAnswer": 1,
+        "category": "Science"
+    },
+    {
+        "question": "Who wrote 'Romeo and Juliet'?",
+        "options": ["Charles Dickens", "William Shakespeare", "Jane Austen", "Mark Twain"],
+        "correctAnswer": 1,
+        "category": "Literature"
+    },
+    {
+        "question": "What is the smallest country in the world?",
+        "options": ["Monaco", "Vatican City", "San Marino", "Liechtenstein"],
+        "correctAnswer": 1,
+        "category": "Geography"
+    },
+    {
+        "question": "Which element is the most abundant in Earth's atmosphere?",
+        "options": ["Oxygen", "Hydrogen", "Carbon Dioxide", "Nitrogen"],
+        "correctAnswer": 3,
+        "category": "Science"
+    },
+    {
+        "question": "What is the currency of Japan?",
+        "options": ["Won", "Yuan", "Yen", "Ringgit"],
+        "correctAnswer": 2,
+        "category": "Geography"
+    }
+]
