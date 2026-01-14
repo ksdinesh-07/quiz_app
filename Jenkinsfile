@@ -9,30 +9,28 @@ pipeline {
         stage('Package') {
             steps {
                 sh '''
-                    echo "Build ${BUILD_NUMBER}: Creating ZIP with Docker..."
+                    echo "Build ${BUILD_NUMBER}: Creating package..."
+                    rm -rf package 2>/dev/null || true
+                    rm -f *.tar.gz 2>/dev/null || true
                     
-                    # Clean up
-                    rm -f *.zip 2>/dev/null || true
+                    mkdir -p package
+                    cp index.html style.css script.js package/
+                    [ -f "questions.json" ] && cp questions.json package/
                     
-                    # Use Docker to create zip (Ubuntu has zip)
-                    docker run --rm \
-                      -v "$PWD:/app" \
-                      ubuntu:latest \
-                      bash -c "
-                        cd /app
-                        mkdir -p package
-                        cp index.html style.css script.js package/
-                        [ -f questions.json ] && cp questions.json package/
-                        zip -r output.zip package/
-                      "
+                    # Create tar.gz (works without zip)
+                    tar -czf "quiz-app-${BUILD_NUMBER}.tar.gz" package/
                     
-                    # Rename
-                    mv output.zip "quiz-app-${BUILD_NUMBER}.zip"
-                    
-                    echo "✅ Created: quiz-app-${BUILD_NUMBER}.zip"
+                    echo "✅ Package: quiz-app-${BUILD_NUMBER}.tar.gz"
+                    ls -lh *.tar.gz
                 '''
-                archiveArtifacts artifacts: "quiz-app-${BUILD_NUMBER}.zip"
+                archiveArtifacts artifacts: "quiz-app-${BUILD_NUMBER}.tar.gz", fingerprint: true
             }
+        }
+    }
+    
+    post {
+        success {
+            echo '🎉 Pipeline successful! Download .tar.gz file'
         }
     }
 }
