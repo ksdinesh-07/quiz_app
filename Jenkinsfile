@@ -6,29 +6,27 @@ pipeline {
             steps { checkout scm }
         }
         
-        stage('Create Package') {
+        stage('Package') {
             steps {
                 sh '''
-                    echo "Creating package for build ${BUILD_NUMBER}..."
-                    mkdir -p package
-                    cp index.html style.css script.js questions.json package/ 2>/dev/null || true
-                    zip -r "quiz-app-${BUILD_NUMBER}.zip" package/
-                    echo "Package created: quiz-app-${BUILD_NUMBER}.zip"
-                    ls -lh *.zip
+                    echo "Building package ${BUILD_NUMBER}..."
+                    mkdir -p pkg
+                    cp index.html pkg/
+                    cp style.css pkg/
+                    cp script.js pkg/
+                    [ -f "questions.json" ] && cp questions.json pkg/
+                    tar -czf quiz-app.tar.gz pkg/
+                    echo "Package: quiz-app.tar.gz"
+                    ls -lh *.tar.gz
                 '''
-            }
-        }
-        
-        stage('Archive') {
-            steps {
-                archiveArtifacts artifacts: "quiz-app-${BUILD_NUMBER}.zip", fingerprint: true
+                archiveArtifacts artifacts: 'quiz-app.tar.gz', fingerprint: true
             }
         }
     }
     
     post {
         success {
-            echo "✅ Build ${BUILD_NUMBER} successful!"
+            echo "✅ Build ${BUILD_NUMBER} complete! Download artifacts."
         }
     }
 }
