@@ -1,14 +1,16 @@
 pipeline {
     agent {
         docker { 
-            image 'node:18-alpine'  # Simple Node.js image
-            args '-u root'  # Run as root to install packages
+            image 'node:18-alpine'
+            args '-u root'
         }
     }
     
     stages {
         stage('Checkout') {
-            steps { checkout scm }
+            steps { 
+                checkout scm 
+            }
         }
         
         stage('Setup') {
